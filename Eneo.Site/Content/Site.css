@@ -1,0 +1,141 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    animation-name: rotateInLeft;
+    animation-duration: 0.7s;
+}
+
+    body.active {
+        /*animation-name: rotate;
+        animation-direction: reverse;
+        animation-duration: 0.5s;*/
+    }
+
+/*.body-content {
+    animation-name: rotateInLeft;
+    animation-duration: 1.3s;
+}*/
+
+.form-group {
+    animation-name: rotateInLeft;
+    animation-duration: 1.6s;
+}
+
+/*.table {
+        animation-name: rotateInLeft;
+    animation-duration: 1s;
+}*/
+
+@keyframes rotateInLeft {
+    from {
+        transform-origin: 0% 0%;
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform-origin: 0% 0%;
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform-origin: 0% 0%;
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform-origin: 0% 0%;
+        transform: rotateY(0deg);
+        display: none;
+    }
+}
+
+@keyframes whirlOut {
+    to {
+        transform: scale(0) rotateZ(1260deg);
+    }
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+    textarea#Description {
+        width: 280px;
+        min-height: 200px;
+    }
+
+#MyMap {
+    height: 500px;
+    animation-name: rotateInLeft;
+    animation-duration: 1.7s;
+    /*width: 400px;*/
+    /*position: relative;*/
+}
+
+#Actions {
+    margin-bottom: 20px;
+}
+
+#FormPhoto {
+    height: 100px;
+    width: 100%;
+}
+
+    #FormPhoto img {
+        height: 100%;
+    }
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spinw {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spinm {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}

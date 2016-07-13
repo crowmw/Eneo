@@ -1,0 +1,131 @@
+﻿@model Eneo.Model.Models.ViewModels.PlacedItemModel
+
+@{
+    ViewBag.Title = "AddMapItem";
+}
+
+<h2>AddPlacedMapItem</h2>
+
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script type="text/javascript">
+    var map = null;
+    var latitude = @Model.Latitude;
+    var longitude = @Model.Longitude;
+
+    function getMap() {
+        map = new Microsoft.Maps.Map(document.getElementById('MyMap'), {
+            credentials: 'AgMMZ260fXQbBMIZQAvSThzwOPRjJ7w3PFVsCUvsihB6533NCvTWw3rTIus84Br2',
+            showDashboard: false
+        });
+        addPushpinWithOptions();
+    };
+
+    function addPushpinWithOptions() {
+        var offset = new Microsoft.Maps.Point(0, 5);
+        var pushpinOptions = {
+            //text: '1',
+            visible: true,
+            textOffset: offset,
+            draggable:true
+        };
+        var pushpin = new Microsoft.Maps.Pushpin(
+            new Microsoft.Maps.Location(latitude, longitude),
+            pushpinOptions);
+        var pushpindragend= Microsoft.Maps.Events.addHandler(pushpin, 'dragend', endDragDetails);
+        map.setView({
+            center: new Microsoft.Maps.Location(latitude,  longitude),
+            zoom: 12
+        });
+        map.entities.push(pushpin);
+    };
+
+    endDragDetails = function (e)
+    {
+        var pinLocation = e.entity.getLocation();
+        latitude = pinLocation.latitude.toFixed(4);
+        longitude = pinLocation.longitude.toFixed(4);
+
+        map.setView({
+            center: new Microsoft.Maps.Location(latitude, longitude),
+            zoom: 12
+        });
+
+        $('#Latitude').val(latitude);
+        $('#Longitude').val(longitude);
+    };
+
+</script>
+
+@using (Html.BeginForm("Add", "PlacedItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <body onload="getMap();">
+    </body>
+
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="row">
+            <h4>MapPlacedItem</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="col-md-5">
+                @Html.HiddenFor(model => model.PlacedItemID, new { htmlAttributes = new { @class = "form-control" } })
+        
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div id="FormPhoto">
+                        <img src="@Model.ImageUrl" />
+                    </div>
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ImageUrl, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input class="form-control" type="file" id="ImagePath" title="Wczytaj obrazek" name="file" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.CollectionItemID, ViewBag.CollectionItemList as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AddedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AddedDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AddedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-3">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7" id="MyMap"></div>
+
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

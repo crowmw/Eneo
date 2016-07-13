@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "CollectionItems";
+}
+
+<h2>CollectionItems</h2>
+
+@(Html.Kendo().Grid<Eneo.Model.Models.ViewModels.CollectionItemModel>()
+    .Name("CollectionItems")
+    .Columns(cols =>
+    {
+        cols.Bound(p => p.CollectionItemID).Hidden();
+        cols.Bound(p => p.Name);
+        cols.Bound(p => p.AddedDate).Format("{0:dd.MM.yyyy}");
+        cols.Command(cmd => { cmd.Edit(); cmd.Destroy(); }).Width(205);
+    })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Model(model => model.Id(p => p.CollectionItemID))
+        .Read(read => read.Action("CollectionItems_Read", "CollectionItem"))
+            .Update(update => update.Action("CollectionItem_Update", "CollectionItem"))
+            .Destroy(delete => delete.Action("CollectionItem_Delete", "CollectionItem"))
+            .Create(create => create.Action("CollectionItem_Create", "CollectionItem"))
+    )
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .ToolBar(toolbar => toolbar.Create())
+    .Scrollable(scrollable => scrollable.Height(430))
+    .Sortable()
+    .Filterable()
+    .Scrollable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .PageSizes(true)
+    .ButtonCount(5)))
+
+<script type="text/javascript">
+    $('.k-grid-content a').addClass("btn btn-primary");
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>

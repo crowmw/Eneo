@@ -1,0 +1,110 @@
+﻿@model Eneo.Model.Models.ViewModels.User.UserAdminDisplay
+
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2>EditUser</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>UserAdminDisplay</h4>
+        <hr />
+        <div class="col-sm-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @if (!string.IsNullOrEmpty(Model.AvatarLink))
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-3">Avatar</label>
+                    <div class="col-md-9">
+                        <div id="formphoto">
+                            <img src="@Model.AvatarLink" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.AvatarLink, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <input class="form-control" type="file" id="ImagePath" title="Wczytaj avatar" name="file" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.EmailConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.EmailConfirmed)
+                            @Html.ValidationMessageFor(model => model.EmailConfirmed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+
+            @Html.HiddenFor(model => model.Id)
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.LockoutEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.LockoutEnabled)
+                            @Html.ValidationMessageFor(model => model.LockoutEnabled, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                <a class="control-label col-md-3" href="">Password reset</a>
+                <div class="col-md-9">
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CollectedItemsCount, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        <p>@Model.CollectedItemsCount</p>
+                    </div>
+                </div>
+            </div>
+
+            @Html.HiddenFor(model => model.EneoUserID)
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

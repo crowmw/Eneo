@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="Eneo.WindowsPhone.Pages.NearestUsersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Eneo.WindowsPhone.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#008AFF">
+
+    <Page.BottomAppBar>
+        <CommandBar IsSticky="True" x:Name="appBar" ClosedDisplayMode="Minimal">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Mapa" Click="btnMapPage_Click" />
+                <AppBarButton Label="Profil" Click="btnUserProfile_Click" />
+                <AppBarButton Label="Najbliższe punkty" Click="btnNearestItemsPage_Click" />
+                <AppBarButton Label="Ranking" Click="btnRankingPage_Click" />
+                <AppBarButton Label="Wyloguj" Click="btnLogOut_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/tlo.png"
+                    Stretch="UniformToFill" />
+        </Grid.Background>
+        <StackPanel x:Name="mainStackpanel2" Orientation="Vertical" Margin="19,0,19,0">
+            <TextBlock Text="Najbliżsi użytkownicy" x:Name="tbUsername" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <ListView x:Name="usersListView" ItemsSource="{Binding}" Margin="0,19,0,0" 
+                      FontSize="44" Grid.ColumnSpan="3" BorderThickness="0,1" 
+                      IsItemClickEnabled="True" ScrollViewer.VerticalScrollMode="Enabled" Tapped="UserTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  FontSize="24" HorizontalAlignment="Left" Grid.Column="0" Text="{Binding userName}"/>
+                            <TextBlock FontSize="24" HorizontalAlignment="Right" Grid.Column="1" >
+                             <Run Text="{Binding distance}"/>
+                                <Run Text=" km"/>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</Page>

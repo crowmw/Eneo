@@ -1,0 +1,17 @@
+﻿@model Eneo.Model.Models.ViewModels.PlacedItemWiki
+
+<tr>
+    @Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.Latitude)
+    @Html.HiddenFor(m => m.Longitude)
+    @Html.HiddenFor(m => m.Checked)
+    @Html.HiddenFor(m => m.ImageUrl)
+    @Html.HiddenFor(m => m.AddedDate)
+    @Html.HiddenFor(m => m.Description)
+    <td>
+        @Html.EditorFor(m => m.Add)
+    </td>
+    <td>
+        @Html.EditorFor(m => m.Name)
+    </td>
+</tr>

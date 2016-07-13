@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Eneo.Model.Models.ViewModels.PlacedItemModel>
+
+@{
+    ViewBag.Title = "PlacedMapItems";
+}
+
+@*<script type="text/javascript">
+        function fixButton() {
+            var x = document.getElementsByClassName("k-button");
+            $(x).addClass("btn");
+            $(x).addClass("btn-primary");
+            $(x).removeClass("k-button-icontext");
+            $(x).removeClass("k-button");
+            $(x).removeClass("k-grid-delete");
+
+        }
+    </script>*@
+
+<h2>MapItems</h2>
+
+<div id="Actions">
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Add")'">
+        <span class="glyphicon glyphicon-plus"></span> Add
+    </button>
+
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("GetWikiUrl")'">
+        <span class="glyphicon glyphicon-th-large"> </span> Import from Wiki
+    </button>
+</div>
+
+@*<p>
+        @Html.ActionLink("Create New", "Add")
+        @Html.ActionLink("Load From Wiki" , "GetWikiUrl")
+    </p>*@
+
+@(Html.Kendo().Grid<Eneo.Model.Models.ViewModels.PlacedItemModel>()
+    .Name("PlacedMapItemsGrid")
+    .Columns(cols =>
+    {
+        cols.Bound(p => p.PlacedItemID).Hidden();
+        cols.Bound(p => p.Name).ClientTemplate("#= shorten(data) #");
+        cols.Bound(p => p.Latitude);
+        cols.Bound(p => p.Longitude);
+        cols.Bound(p => p.AddedDate).Format("{0:dd.MM.yyyy}");
+        cols.Template(t => { }).HeaderTemplate("").ClientTemplate(
+            //"<a href="+Url.Action("Edit",new { id = "#=PlacedItemID#" }) + " class=\"k-button k-button-icontext k-grid-edit\">" +
+            //"<span class=\"k-icon k-edit\"> </span> Details </a>")
+            Html.ActionLink("Details", "Edit", new { id = "#=PlacedItemID#" }).ToHtmlString())
+            .Width(100);
+        cols.Command(cmd => { cmd.Destroy(); }).Width(105);
+    })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Model(model => model.Id(p => p.PlacedItemID))
+        .Read(read => read.Action("PlacedMapItems_Read", "PlacedItem"))
+        .Destroy(delete => delete.Action("PlacedMapItem_Delete", "PlacedItem"))
+        )
+        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .Scrollable(scrollable => scrollable.Height(430))
+        .Sortable()
+        .Filterable()
+        .Scrollable()
+        .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(true)
+        .ButtonCount(5)))
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlacedItemID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlacedItemID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditMapItem", new { id=item.PlacedItemID  }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PlacedItemID }) |
+                @Html.ActionLink("Delete", "DeleteMapItem", new { id = item.PlacedItemID })
+            </td>
+        </tr>
+    }
+    </table>*@
+
+<script type="text/javascript">
+    function shorten(data) {
+        if (data.Name.length > 25) {
+            data.Name = data.Name.trunc(22) + '...';
+        }
+        return data.Name;
+    };
+
+    String.prototype.trunc = String.prototype.trunc ||
+      function (n) {
+          return this.length > n ? this.substr(0, n - 1) + '&hellip;' : this;
+      };
+</script>

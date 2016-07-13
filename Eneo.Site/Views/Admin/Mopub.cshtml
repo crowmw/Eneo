@@ -1,0 +1,20 @@
+﻿<script type="text/javascript">
+    window.mopub = [{
+        ad_unit: "1bcbc4e588d140ff9208b24daf2e5e42",
+        ad_container_id: "bobi", // Specify the div or container to which you’d like to the mobile web tag
+        ad_width: 320,
+        ad_height: 50,
+        keywords: "", // Optionally pass keywords as a comma separated list
+    }]; // To load additional ad units, add another object into the array.
+
+    (function () {
+        var mopubjs = document.createElement("script");
+        mopubjs.async = true;
+        mopubjs.type = "text/javascript";
+        mopubjs.src = "//d1zg4cyg8u4pko.cloudfront.net/mweb/mobileweb.min.js";
+        var node = document.getElementsByTagName("script")[0];
+        node.parentNode.insertBefore(mopubjs, node);
+    })();
+</script>
+<div id="bobi">
+</div>

@@ -1,0 +1,200 @@
+﻿@model List<Eneo.Model.Models.ViewModels.PlacedItemWiki>
+@{
+    ViewBag.Title = "Load";
+}
+
+
+
+<h2>Load from Wikipedia</h2>
+
+@*<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>*@
+
+    @Scripts.Render("~/bundles/mapcontrol")
+
+<script type="text/javascript">
+    var map = null;
+    var pinInfoBox;  //the pop up info box
+    var infoboxLayer = new Microsoft.Maps.EntityCollection();
+    var pinLayer = new Microsoft.Maps.EntityCollection();
+    function getMap() {
+        map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            credentials: 'AgMMZ260fXQbBMIZQAvSThzwOPRjJ7w3PFVsCUvsihB6533NCvTWw3rTIus84Br2',
+            showDashboard: false
+        });
+        addPushpins();
+
+        // Create the info box for the pushpin
+        pinInfobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false });
+        infoboxLayer.push(pinInfobox);
+
+        var test = '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model).Replace("\\", string.Empty).Replace("\'",string.Empty))';
+        var items = JSON.parse(test);
+
+        var sumOfLat = 0;
+        var sumOfLon = 0;
+        var counter = 0;
+        var itemLatString, itemLatFloat, itemLonString, itemLonFloat, centerLat, centerLon;
+        items.forEach(function (mapItem) {
+            counter = counter + 1;
+
+            itemLatString = mapItem.Latitude;
+            if (itemLatString === "") {
+                counter = counter - 1;
+            }
+            else {
+                itemLatFloat = itemLatString.replace(",", ".");
+                itemLonString = mapItem.Longitude;
+                itemLonFloat = itemLonString.replace(",", ".");
+               
+                sumOfLat = parseFloat(sumOfLat) + parseFloat(itemLatFloat);
+                sumOfLon = parseFloat(sumOfLon) + parseFloat(itemLonFloat);
+            }
+            
+        });
+        centerLat = sumOfLat / counter;
+        centerLon = sumOfLon / counter;
+
+        map.setView({
+            center: new Microsoft.Maps.Location(centerLat, centerLon),
+            zoom: 13
+        });
+    }
+
+    function displayInfobox(e) {
+        pinInfobox.setOptions({ title: e.target.Title, description: e.target.Description, visible: true, offset: new Microsoft.Maps.Point(0, 25) });
+        pinInfobox.setLocation(e.target.getLocation());
+    }
+
+    function hideInfobox(e) {
+        pinInfobox.setOptions({ visible: false });
+    }
+
+    function addPushpins() {
+        var test = '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model).Replace("\\", string.Empty).Replace("\'",string.Empty))';
+        //console.log(typeof (test));
+
+        var items = JSON.parse(test);
+        //console.log(items);
+
+        items.forEach(function (mapItem) {
+            addPushpinWithOptions(mapItem.Latitude, mapItem.Longitude, mapItem.Name);
+        });
+    };
+
+    function addPushpinWithOptions(latitude, longitude, name) {
+        latitude = latitude.replace(',', '.');
+        longitude = longitude.replace(',', '.');
+        var offset = new Microsoft.Maps.Point(0, 5);
+        var pushpinOptions = {
+            visible: true,
+            textOffset: offset,
+            draggable: false,
+        };
+
+        var pushpin = new Microsoft.Maps.Pushpin(
+           new Microsoft.Maps.Location(latitude, longitude),
+           pushpinOptions);
+
+        pushpin.Title = name;
+        pushpin.Description = "Latitude = " + latitude + "</br>" + "Longitude = " + longitude;
+
+        pinLayer.push(pushpin); 
+        Microsoft.Maps.Events.addHandler(pushpin, 'click', displayInfobox);
+
+        var pushpinClick = Microsoft.Maps.Events.addHandler(pushpin, 'click', displayEventInfo);
+
+        map.entities.push(pushpin);
+        map.entities.push(pinLayer);
+        map.entities.push(infoboxLayer);
+    }
+
+    displayEventInfo = function (e) {
+        var obj = e.target;
+        var info = "Events info - " + e.eventName + "\n";
+        info += "Target  : " + obj.toString();
+    }
+
+</script>
+
+<div id='myMap' style="position:relative; width:1140px; height:570px;"></div>
+
+@using (Html.BeginForm("LoadedFromWiki","PlacedItem", FormMethod.Post))
+{ 
+    @Html.AntiForgeryToken()
+    
+<table class="table">
+    <tr>
+        <th>
+            Dodać?
+            @*@Html.DisplayNameFor(model => model.Add)*@
+        </th>
+        <th>
+            Nazwa
+            @*@Html.DisplayNameFor(model => model.Name)*@
+        </th>
+    </tr>
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        @Html.EditorFor(m => Model[i]);
+        
+        @*<tr>
+            @Html.HiddenFor(modelItem => item.Name)
+            @Html.HiddenFor(modelItem => item.Latitude)
+            @Html.HiddenFor(modelItem => item.Longitude)
+            @Html.HiddenFor(modelItem => item.Checked)
+            @Html.HiddenFor(modelItem => item.ImageUrl)
+            @Html.HiddenFor(modelItem => item.AddedDate)
+            <td>
+                @Html.EditorFor(modelItem => item.Add)
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.Name)
+            </td>
+        </tr>*@
+    }
+    </table>
+    
+    <input type="submit" value="Zapisz"/>
+}
+
+    <body onload="getMap();">
+        <div id="MyMap">
+        </div>
+    </body>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+@*@(Html.Kendo().Grid<Eneo.Model.Models.ViewModels.PlacedItemModel>()
+    .Name("PlacedMapItemsGrid")
+    .Columns(cols =>
+    {
+        cols.Bound(p => p.PlacedItemID).Hidden();
+        cols.Bound(p => p.Name);
+        cols.Bound(p => p.Latitude);
+        cols.Bound(p => p.Longitude);
+        cols.Bound(p => p.Description);
+        cols.Template(t => { }).HeaderTemplate("").ClientTemplate(
+            @Html.ActionLink("Szczegóły", "Edit", new { id = "#=PlacedItemID#" }).ToHtmlString())
+            .Width(105);
+        cols.Command(cmd => { cmd.Destroy(); }).Width(105);
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(20)
+    .Model(model => model.Id(p => p.PlacedItemID))
+            .Read(read => read.Action("PlacedMapItems_LoadFromWiki", "PlacedItem"))
+                .Destroy(delete => delete.Action("PlacedMapItem_Delete", "PlacedItem"))
+    )
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Scrollable(scrollable => scrollable.Height(430))
+    .Sortable()
+    .Filterable()
+    .Scrollable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .PageSizes(true)
+    .ButtonCount(5))
+)*@

@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="Eneo.WindowsPhone.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Eneo.WindowsPhone.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:adduplex="using:AdDuplex.Universal.Controls.Win.XAML"
+    xmlns:UI="using:Microsoft.Advertising.Mobile.UI"
+    mc:Ignorable="d"
+    Background="#008AFF">
+
+    <Page.BottomAppBar>
+        <CommandBar IsSticky="True" x:Name="appBar" ClosedDisplayMode="Minimal">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Zakończ" Click="AppBarButton_Click" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/tlo.png"
+                    Stretch="UniformToFill" />
+        </Grid.Background>
+        <TextBlock Text="Eneo" Margin="19,0,0,0" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+        <StackPanel Grid.Row="0"  VerticalAlignment="Center">
+            <StackPanel  Name="LoginStackPanel" Orientation="Vertical" VerticalAlignment="Center" Margin="19,0,19,19">
+                <TextBox Name="tbLogin" PlaceholderText="Login" Text="bobi" />
+                <PasswordBox Name="tbPassword" PlaceholderText="Hasło" Password="kenobi" />
+                <Button Name="btnLogin" Content="Zaloguj" Background="{ThemeResource ButtonBackgroundThemeBrush}" HorizontalAlignment="Stretch" Click="btnLogin_Click" />
+                <StackPanel HorizontalAlignment="Stretch">
+                    <Button Name="btnFacebook" Content="Facebook" Background="{ThemeResource ButtonBackgroundThemeBrush}" HorizontalAlignment="Stretch" Click="btnFacebook_Click" />
+                    <!--<Button Name="btnGoogle" Content="Google+" Background="{ThemeResource ButtonBackgroundThemeBrush}" HorizontalAlignment="Stretch" />-->
+                </StackPanel>
+                <HyperlinkButton x:Name="hRegister" HorizontalAlignment="Right" FontSize="20" Click="hRegister_Click">Zarejestruj się</HyperlinkButton>
+            </StackPanel>
+        </StackPanel>
+
+        <!--<WebView x:Name=""adWebView Width="320" Height="50" />-->
+        <!--<adduplex:AdControl AdUnitId="148207" Height="200" AppKey="75a35e29-16a3-428f-86d6-bf2310387b15" VerticalAlignment="Bottom" />-->
+        <UI:AdControl ApplicationId="dc776f36-db1c-4c20-9f16-680f8b7a1072"
+                      AdUnitId="220629"
+                      HorizontalAlignment="Center"
+                      Height="100"
+                      IsAutoCollapseEnabled="True"
+                      Background="#008AFF"
+                      IsAutoRefreshEnabled="True"
+                      VerticalAlignment="Bottom"
+                      Width="640"
+                      ErrorOccurred="AdControl_ErrorOccurred"
+                      AdRefreshed="AdControl_AdRefreshed"
+                      CountryOrRegion="PL" />
+    </Grid>
+</Page>

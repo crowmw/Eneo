@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA445B5A-866B-435B-8FB2-3F244C56D04C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eneo.Model</RootNamespace>
+    <AssemblyName>Eneo.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone.RRLSimulation">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\PrivateAssemblies\Microsoft.Phone.RRLSimulation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201504191350240_InitialCreate.cs" />
+    <Compile Include="Migrations\201504191350240_InitialCreate.Designer.cs">
+      <DependentUpon>201504191350240_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504201025122_DateToCollectionAndCollectedItem.cs" />
+    <Compile Include="Migrations\201504201025122_DateToCollectionAndCollectedItem.Designer.cs">
+      <DependentUpon>201504201025122_DateToCollectionAndCollectedItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504201029140_DeleteCompanyTable.cs" />
+    <Compile Include="Migrations\201504201029140_DeleteCompanyTable.Designer.cs">
+      <DependentUpon>201504201029140_DeleteCompanyTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504201953521_AddAvatarGuid.cs" />
+    <Compile Include="Migrations\201504201953521_AddAvatarGuid.Designer.cs">
+      <DependentUpon>201504201953521_AddAvatarGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504211331423_AddImageAndDescriptionToPlacedItem.cs" />
+    <Compile Include="Migrations\201504211331423_AddImageAndDescriptionToPlacedItem.Designer.cs">
+      <DependentUpon>201504211331423_AddImageAndDescriptionToPlacedItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504231624342_AddComments.cs" />
+    <Compile Include="Migrations\201504231624342_AddComments.Designer.cs">
+      <DependentUpon>201504231624342_AddComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504231856034_AddDateToCommentAndPlacedItem.cs" />
+    <Compile Include="Migrations\201504231856034_AddDateToCommentAndPlacedItem.Designer.cs">
+      <DependentUpon>201504231856034_AddDateToCommentAndPlacedItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505051433104_AddExternalProvider.cs" />
+    <Compile Include="Migrations\201505051433104_AddExternalProvider.Designer.cs">
+      <DependentUpon>201505051433104_AddExternalProvider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505051707282_AddDisplayName.cs" />
+    <Compile Include="Migrations\201505051707282_AddDisplayName.Designer.cs">
+      <DependentUpon>201505051707282_AddDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505141123586_CommentTableIssue.cs" />
+    <Compile Include="Migrations\201505141123586_CommentTableIssue.Designer.cs">
+      <DependentUpon>201505141123586_CommentTableIssue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505141335492_NotificationAndMessage.cs" />
+    <Compile Include="Migrations\201505141335492_NotificationAndMessage.Designer.cs">
+      <DependentUpon>201505141335492_NotificationAndMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505180728252_DmpUserPositions.cs" />
+    <Compile Include="Migrations\201505180728252_DmpUserPositions.Designer.cs">
+      <DependentUpon>201505180728252_DmpUserPositions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505211456525_messageRepair.cs" />
+    <Compile Include="Migrations\201505211456525_messageRepair.Designer.cs">
+      <DependentUpon>201505211456525_messageRepair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505242207325_bobi.cs" />
+    <Compile Include="Migrations\201505242207325_bobi.Designer.cs">
+      <DependentUpon>201505242207325_bobi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505311759464_addDeviceInfo.cs" />
+    <Compile Include="Migrations\201505311759464_addDeviceInfo.Designer.cs">
+      <DependentUpon>201505311759464_addDeviceInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506011104379_dmpfacebook.cs" />
+    <Compile Include="Migrations\201506011104379_dmpfacebook.Designer.cs">
+      <DependentUpon>201506011104379_dmpfacebook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506061034079_lastposition.cs" />
+    <Compile Include="Migrations\201506061034079_lastposition.Designer.cs">
+      <DependentUpon>201506061034079_lastposition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506061145192_lastpositiondouble.cs" />
+    <Compile Include="Migrations\201506061145192_lastpositiondouble.Designer.cs">
+      <DependentUpon>201506061145192_lastpositiondouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141156029_fejsbuk.cs" />
+    <Compile Include="Migrations\201506141156029_fejsbuk.Designer.cs">
+      <DependentUpon>201506141156029_fejsbuk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141219308_likeID.cs" />
+    <Compile Include="Migrations\201506141219308_likeID.Designer.cs">
+      <DependentUpon>201506141219308_likeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141243097_LikeDate.cs" />
+    <Compile Include="Migrations\201506141243097_LikeDate.Designer.cs">
+      <DependentUpon>201506141243097_LikeDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\ApplicationUser.cs" />
+    <Compile Include="EneoContext.cs" />
+    <Compile Include="Models\Entities\Client.cs" />
+    <Compile Include="Models\Entities\CollectedItem.cs" />
+    <Compile Include="Models\Entities\CollectionItem.cs" />
+    <Compile Include="Models\Entities\Company.cs" />
+    <Compile Include="Models\Entities\DMPDeviceInfo.cs" />
+    <Compile Include="Models\Entities\DMPFacebook.cs" />
+    <Compile Include="Models\Entities\DMPFacebookLikes.cs" />
+    <Compile Include="Models\Entities\DMPUserPositions.cs" />
+    <Compile Include="Models\Entities\EneoUser.cs" />
+    <Compile Include="Models\Entities\ExternalLogin.cs" />
+    <Compile Include="Models\Entities\Message.cs" />
+    <Compile Include="Models\Entities\Notification.cs" />
+    <Compile Include="Models\Entities\PlacedItem.cs" />
+    <Compile Include="Models\Entities\PlacedItemComment.cs" />
+    <Compile Include="Models\Entities\UserLogin.cs" />
+    <Compile Include="Models\SerializeModels\IdentityUserSM.cs" />
+    <Compile Include="Models\ViewModels\CollectedItemModel.cs" />
+    <Compile Include="Models\ViewModels\DMP\DMPFacebookModel.cs" />
+    <Compile Include="Models\ViewModels\DMP\DMPFacebookLikes.cs" />
+    <Compile Include="Models\ViewModels\LastPosition.cs" />
+    <Compile Include="Models\ViewModels\CollectionItemModel.cs" />
+    <Compile Include="Models\ViewModels\PlacedItemCommentModel.cs" />
+    <Compile Include="Models\ViewModels\DMP\DMPDevice.cs" />
+    <Compile Include="Models\ViewModels\DMP\DMPPosition.cs" />
+    <Compile Include="Models\ViewModels\DMP\DMPPositionSite.cs" />
+    <Compile Include="Models\ViewModels\MessageModel.cs" />
+    <Compile Include="Models\ViewModels\MessageSendModel.cs" />
+    <Compile Include="Models\ViewModels\PlacedItemModel.cs" />
+    <Compile Include="Models\ViewModels\PlacedItemWiki.cs" />
+    <Compile Include="Models\ViewModels\User\NearestUser.cs" />
+    <Compile Include="Models\ViewModels\User\UserAdminDisplay.cs" />
+    <Compile Include="Models\ViewModels\User\UserProfile.cs" />
+    <Compile Include="Models\ViewModels\User\UserRanking.cs" />
+    <Compile Include="Models\ViewModels\WikiUrlModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CollectedItemRepo.cs" />
+    <Compile Include="Repository\CollectionItemsRepo.cs" />
+    <Compile Include="Repository\DMPRepo.cs" />
+    <Compile Include="Repository\EneoRepository.cs" />
+    <Compile Include="Repository\ExportRepo.cs" />
+    <Compile Include="Repository\Helper\LinqExtensions.cs" />
+    <Compile Include="Repository\MessageRepo.cs" />
+    <Compile Include="Repository\PlacedItemsRepo.cs" />
+    <Compile Include="Repository\UserRepo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504191350240_InitialCreate.resx">
+      <DependentUpon>201504191350240_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201025122_DateToCollectionAndCollectedItem.resx">
+      <DependentUpon>201504201025122_DateToCollectionAndCollectedItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201029140_DeleteCompanyTable.resx">
+      <DependentUpon>201504201029140_DeleteCompanyTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504201953521_AddAvatarGuid.resx">
+      <DependentUpon>201504201953521_AddAvatarGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504211331423_AddImageAndDescriptionToPlacedItem.resx">
+      <DependentUpon>201504211331423_AddImageAndDescriptionToPlacedItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504231624342_AddComments.resx">
+      <DependentUpon>201504231624342_AddComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504231856034_AddDateToCommentAndPlacedItem.resx">
+      <DependentUpon>201504231856034_AddDateToCommentAndPlacedItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505051433104_AddExternalProvider.resx">
+      <DependentUpon>201505051433104_AddExternalProvider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505051707282_AddDisplayName.resx">
+      <DependentUpon>201505051707282_AddDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505141123586_CommentTableIssue.resx">
+      <DependentUpon>201505141123586_CommentTableIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505141335492_NotificationAndMessage.resx">
+      <DependentUpon>201505141335492_NotificationAndMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505180728252_DmpUserPositions.resx">
+      <DependentUpon>201505180728252_DmpUserPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505211456525_messageRepair.resx">
+      <DependentUpon>201505211456525_messageRepair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505242207325_bobi.resx">
+      <DependentUpon>201505242207325_bobi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505311759464_addDeviceInfo.resx">
+      <DependentUpon>201505311759464_addDeviceInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506011104379_dmpfacebook.resx">
+      <DependentUpon>201506011104379_dmpfacebook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506061034079_lastposition.resx">
+      <DependentUpon>201506061034079_lastposition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506061145192_lastpositiondouble.resx">
+      <DependentUpon>201506061145192_lastpositiondouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141156029_fejsbuk.resx">
+      <DependentUpon>201506141156029_fejsbuk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141219308_likeID.resx">
+      <DependentUpon>201506141219308_likeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141243097_LikeDate.resx">
+      <DependentUpon>201506141243097_LikeDate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eneo.Helpers\Eneo.Helpers.csproj">
+      <Project>{ee438131-9a0b-492d-a0ab-5f06834f6ddf}</Project>
+      <Name>Eneo.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

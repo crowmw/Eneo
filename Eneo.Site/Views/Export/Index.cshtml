@@ -1,0 +1,136 @@
+﻿@model string[]
+
+@{
+    ViewBag.Title = "Export data to XML";
+}
+
+<h2>Export data to XML</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div id="Actions">
+    <button id="btnUsers" class="btn btn-primary">
+        <span class="glyphicon glyphicon-file"></span> Users
+    </button>
+    <button id="btnPlaces" class="btn btn-primary">
+        <span class="glyphicon glyphicon-file"></span> Places
+    </button>
+    <button id="btnDMP" class="btn btn-primary">
+        <span class="glyphicon glyphicon-file"></span> DMP
+    </button>
+</div>
+
+<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>
+            Filename
+        </th>
+        <th>
+            Download
+        </th>
+        <th>
+            Import
+        </th>
+        <th>
+            Delete
+        </th>
+
+    </tr>
+
+    @foreach (var file in Model)
+    {
+        <tr>
+            <td>
+                @file
+            </td>
+            <td>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("GetXML", new { filename = file })'">
+                    <span class="glyphicon glyphicon-download-alt"></span> Download
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("Import", new { filename = file })'">
+                    <span class="glyphicon glyphicon-transfer"> </span> Import
+                </button>
+            </td>
+            <td>
+                @Html.Hidden("filename", file, new { @class = "filename" })
+                <button class="btn btn-danger btndelete" @*onclick="location.href='@Url.Action("Delete", new { filename = file })'"*@>
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $("#btnUsers").click(function () {
+        AnimateAndUnbindButton('#btnUsers');
+        SendXMLRequest('/Export/Users', '#btnUsers');
+    });
+
+
+
+    $("#btnPlaces").click(function () {
+        AnimateAndUnbindButton('#btnPlaces');
+        SendXMLRequest("/Export/Places", '#btnPlaces');
+    });
+
+    $('.btnDelete').click(function () {
+        var btnSelector = $(this);
+        btnSelector.removeClass("btn-danger");
+        btnSelector.addClass("btn-warning");
+        btnSelector.children().removeClass('glyphicon-file');
+        btnSelector.children().addClass('glyphicon-refresh');
+        btnSelector.children().addClass('glyphicon-refresh-animate');
+
+        var filename = $(this).parent().find(".filename").val();
+        var row = $(this).parent().parent();
+        SendDeleteRequest(filename, row, $(this));
+    });
+
+    $("#btnDMP").click(function () {
+        AnimateAndUnbindButton('#btnDMP');
+        SendXMLRequest("/Export/DMP", '#btnDMP');
+    });
+
+    function AnimateAndUnbindButton(btnSelector) {
+        $(btnSelector + ' span').removeClass('glyphicon-file');
+        $(btnSelector + ' span').addClass('glyphicon-refresh');
+        $(btnSelector + ' span').addClass('glyphicon-refresh-animate');
+        $(btnSelector).removeClass('btn-primary');
+        $(btnSelector).addClass('btn-success');
+        $('.btn-primary').unbind();
+    }
+
+    function SendDeleteRequest(filename, tableRow, btnSelector) {
+        $.ajax({
+            'type': 'GET',
+            'data': '',
+            'success': function () {
+                tableRow.remove();
+            },
+            'error': function () {
+            },
+            'url': '/Export/Delete?filename=' + filename,
+            'cache': false
+        })
+    }
+
+    function SendXMLRequest(url, btnSelector) {
+        $.ajax({
+            'type': 'POST',
+            'data': '',
+            'success': function () {
+                location.reload()
+            },
+            'error': function () {
+                $(btnSelector).removeClass('btn-primary');
+                $(btnSelector).addClass('btn-danger');
+                $(btnSelector + ' span').removeClass('glyphicon-refresh-animate');
+            },
+            'url': url,
+            'cache': false
+        })
+    }
+</script>

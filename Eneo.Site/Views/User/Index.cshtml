@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+@(Html.Kendo().Grid<Eneo.Model.Models.ViewModels.User.UserAdminDisplay>()
+    .Name("UsersGrid")
+    .Columns(cols =>
+    {
+        cols.Bound(p => p.EneoUserID).Hidden();
+        cols.Bound(p => p.UserName);
+        cols.Bound(p => p.Email);
+        cols.Bound(p => p.EmailConfirmed);
+        cols.Bound(p => p.LastLoginDate).Format("{0:dd.MM.yyyy}");
+        cols.Bound(p => p.RegisterDate).Format("{0:dd.MM.yyyy}");
+        cols.Bound(p => p.CollectedItemsCount);
+        cols.Template(t => { }).HeaderTemplate("").ClientTemplate(
+            @Html.ActionLink("Szczegóły","Edit",new { id = "#=EneoUserID#" }).ToHtmlString())
+            .Width(105);
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(20)
+    .Model(model => model.Id(p => p.EneoUserID))
+    .Read(read => read.Action("Users_Read", "User"))
+    //.Create(create => create.Action("User_Create", "Admin"))
+    //.Destroy(update => update.Action("User_Update", "Admin"))
+    )
+
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    //.ToolBar(toolbar => toolbar.Create())
+    .Scrollable(scrollable => scrollable.Height(430))
+    .Sortable()
+    .Filterable()
+    .Scrollable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .PageSizes(true)
+    .ButtonCount(5)))
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EneoUserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLoginDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegisterDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LockoutEnabled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EneoUserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastLoginDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisterDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUser", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>*@

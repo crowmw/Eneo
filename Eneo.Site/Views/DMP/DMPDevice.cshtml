@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Eneo.Model.Models.ViewModels.DMP.DMPDevice>
+
+@{
+    ViewBag.Title = "DMPDevice";
+}
+
+<h2>DMPDevice</h2>
+
+<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OperatingSystem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemFirmwareVersion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemHardwareVersion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemManufacturer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SystemProductName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingSystem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemFirmwareVersion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemHardwareVersion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemManufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemProductName)
+            </td>
+        </tr>
+    }
+</table>

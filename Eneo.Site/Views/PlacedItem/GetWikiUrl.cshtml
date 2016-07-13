@@ -1,0 +1,17 @@
+﻿@model Eneo.Model.Models.ViewModels.WikiUrlModel
+
+@{
+    ViewBag.Title = "GetWikiUrl";
+}
+
+<h2>GetWikiUrl</h2>
+
+@using (Html.BeginForm("LoadFromWiki","PlacedItem",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <p>Podaj url do strony z wiki zawierającej lokacje, np. <a href="@Model.Value">@Model.Value</a></p>
+    @Html.EditorFor(m => Model.Value)
+    
+    <input type="submit" value="Pobierz"/>
+}
+
